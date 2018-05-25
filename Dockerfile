@@ -66,9 +66,8 @@ RUN msiexec.exe /i c:\install\rewrite_amd64.msi /passive
  
 RUN powershell -Command cd C:\inetpub\wwwroot\
  
-EXPOSE 80
- 
 RUN powershell -Command C:\Windows\System32\inetsrv\appcmd.exe set config /section:directoryBrowse /enabled:true
+EXPOSE 80
  
 # To run it with a static IP with port mapping run the following command in your powershell
 # docker run -it --name staticwebapp --network=nat --ip 172.24.80.3 -p 888:80 webapp powershell
