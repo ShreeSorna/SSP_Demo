@@ -56,9 +56,6 @@ RUN powershell -NoProfile -Command \
 RUN powershell -NoProfile -Command \
     Import-module IISAdministration; \
                 New-WebApplication -Name test -Site 'Default Web Site' -PhysicalPath C:\inetpub\wwwroot\ -ApplicationPool DefaultAppPool
- 
-RUN powershell -NoProfile -Command \
-                icacls C:\inetpub\wwwroot\ /grant Everyone:F /t /q
                 
 ADD https://download.microsoft.com/download/C/9/E/C9E8180D-4E51-40A6-A9BF-776990D8BCA9/rewrite_amd64.msi /install/rewrite_amd64.msi
  
