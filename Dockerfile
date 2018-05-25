@@ -46,8 +46,8 @@ RUN start /w dism /online /enable-feature /featurename:HttpWebRequest
 RUN start /w dism /Enable-Feature /online /featurename:IIS-IPSecurity /all
 
  
-ADD .\SSP_Demo_Code\bin\ C:/inetpub/wwwroot/
- 
+COPY C:\Program Files (x86)\Jenkins\workspace\SSP_Demo\SSP_Demo_Code\bin\ C:/inetpub/wwwroot/
+
 RUN powershell -NoProfile -Command \
                 remove-item C:\inetpub\wwwroot\iisstart.*
  
