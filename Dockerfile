@@ -44,10 +44,9 @@ RUN start /w dism /online /enable-feature /featurename:Web-ISAPI-Filter
 RUN start /w dism /online /enable-feature /featurename:Web-Metabase
 RUN start /w dism /online /enable-feature /featurename:HttpWebRequest
 RUN start /w dism /Enable-Feature /online /featurename:IIS-IPSecurity /all
+
  
-RUN powershell -Command mkdir C:\inetpub\wwwroot\test
- 
-ADD test/Test/ C:/inetpub/wwwroot/test
+ADD C:\Program Files (x86)\Jenkins\workspace\SSP_Demo\SSP_Demo_Code\SSP_Demo_Code\bin\* C:/inetpub/wwwroot/
  
 RUN powershell -NoProfile -Command \
                 remove-item C:\inetpub\wwwroot\iisstart.*
@@ -56,16 +55,16 @@ RUN powershell -NoProfile -Command \
  
 RUN powershell -NoProfile -Command \
     Import-module IISAdministration; \
-                New-WebApplication -Name test -Site 'Default Web Site' -PhysicalPath C:\inetpub\wwwroot\test -ApplicationPool DefaultAppPool
+                New-WebApplication -Name test -Site 'Default Web Site' -PhysicalPath C:\inetpub\wwwroot\ -ApplicationPool DefaultAppPool
  
 RUN powershell -NoProfile -Command \
-                icacls C:\inetpub\wwwroot\test /grant Everyone:F /t /q
+                icacls C:\inetpub\wwwroot\ /grant Everyone:F /t /q
                 
 ADD https://download.microsoft.com/download/C/9/E/C9E8180D-4E51-40A6-A9BF-776990D8BCA9/rewrite_amd64.msi /install/rewrite_amd64.msi
  
 RUN msiexec.exe /i c:\install\rewrite_amd64.msi /passive
  
-RUN powershell -Command cd C:\inetpub\wwwroot\test
+RUN powershell -Command cd C:\inetpub\wwwroot\
  
 EXPOSE 80
  
